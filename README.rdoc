@@ -1,0 +1,25 @@
+= ans-i18n
+
+i18n 関連のユーティリティー
+
+
+== summary
+
+* Ans::I18n::LabelHelper : i18n のロケールを読み込むメソッドを提供
+
+
+== LabelHelper
+
+i18n の t メソッドの拡張版を提供
+
+ include Ans::I18n::LabelHelper
+
+ t_attr :column
+ t_attr_model :model, :column
+
+t_attr メソッドは、現在のコントローラからモデル名を類推して、カラム名を取得
+
+カラム名は、 i18n ロケールファイルの activerecord.attributes.{モデル名}.{カラム名} から取得する
+
+t_attr_model メソッドは、モデル名を指定してカラム名を取得する
+
