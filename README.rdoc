@@ -17,9 +17,20 @@ i18n の t メソッドの拡張版を提供
  t_attr :column
  t_attr_model :model, :column
 
+ t_message :key, replaces={}
+ t_message_model :model, :key, replaces={}
+
 t_attr メソッドは、現在のコントローラからモデル名を類推して、カラム名を取得
 
 カラム名は、 i18n ロケールファイルの activerecord.attributes.{モデル名}.{カラム名} から取得する
 
 t_attr_model メソッドは、モデル名を指定してカラム名を取得する
+
+
+t_message メソッドは、 t_attr メソッドと似ていて、 messages.{モデル名}.{キー} からメッセージを取得する
+
+追加でハッシュを渡すと、キーをコロン「:」で囲った文字列が、指定したキーに置換されて返される
+
+ t_message :key #=> ":name:のメッセージ"
+ t_message :key, name: "名前" #=> "名前のメッセージ"
 
