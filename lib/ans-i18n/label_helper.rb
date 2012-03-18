@@ -8,14 +8,17 @@ module Ans::I18n::LabelHelper
     ::I18n.t "activerecord.attributes.#{model}.#{attr}"
   end
 
-  def t_message(attr,replaces=nil)
-    t_message_model controller.controller_name.singularize, attr, replaces
+  def t_message(attr,default,replaces=nil)
+    t_message_model controller.controller_name.singularize, attr, default, replaces
   end
-  def t_message_model(model,attr,replaces=nil)
-    ::I18n.t("messages.#{model}.#{attr}").tap{|result|
+  def t_message_model(model,attr, default,replaces=nil)
+    ::I18n.t("#{t_message_key}.#{model}.#{attr}", default: default).tap{|result|
       replaces.try(:each) do |tag,value|
         result.gsub! /:#{Regexp.quote tag}:/, value
       end
     }
+  end
+  def t_message_key
+    "messages"
   end
 end

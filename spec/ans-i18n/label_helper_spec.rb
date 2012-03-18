@@ -54,11 +54,12 @@ module Ans::I18n
         stub(@helper).controller { controller }
 
         @attr = :attr
-        @helper.t_message @attr
+        @default = "デフォルト"
+        @helper.t_message @attr, @default
       end
 
       it "は、 messages からメッセージを取得する" do
-        ::I18n.should have_received.t("messages.article.#{@attr}")
+        ::I18n.should have_received.t("messages.article.#{@attr}", default: @default)
       end
     end
 
@@ -66,7 +67,7 @@ module Ans::I18n
       before do
         @attr = :attr
 
-        stub(::I18n).t("messages.article.#{@attr}"){@message}
+        stub(::I18n).t("messages.article.#{@attr}", default: "default"){@message}
 
         controller = Object.new
         stub(controller).controller_name { "articles" }
@@ -75,11 +76,11 @@ module Ans::I18n
 
       it "は、 messages からメッセージを取得し、置換して返す" do
         @message = ":key:のメッセージ"
-        @helper.t_message(@attr, key: "value").should == "valueのメッセージ"
+        @helper.t_message(@attr, "default", key: "value").should == "valueのメッセージ"
       end
       it "は、正規表現の特殊文字をキーにしたハッシュでも正しく置換して返す" do
         @message = ":[name]:のメッセージ"
-        @helper.t_message(@attr, "[name]" => "value").should == "valueのメッセージ"
+        @helper.t_message(@attr, "default", "[name]" => "value").should == "valueのメッセージ"
       end
     end
 
@@ -89,11 +90,33 @@ module Ans::I18n
 
         @model = :model
         @attr = :attr
-        @helper.t_message_model @model, @attr
+        @default = "デフォルト"
+        @helper.t_message_model @model, @attr, @default
       end
 
       it "は、 messages からラベルを取得する" do
-        ::I18n.should have_received.t("messages.#{@model}.#{@attr}")
+        ::I18n.should have_received.t("messages.#{@model}.#{@attr}", default: @default)
+      end
+    end
+
+    describe "#t_message_key をオーバーライドする" do
+      before do
+        stub(::I18n).t
+
+        class << @helper
+          def t_message_key
+            "scoped.messages"
+          end
+        end
+
+        @model = :model
+        @attr = :attr
+        @default = "デフォルト"
+        @helper.t_message_model @model, @attr, @default
+      end
+
+      it "は、 scoped.messages からラベルを取得する" do
+        ::I18n.should have_received.t("scoped.messages.#{@model}.#{@attr}", default: @default)
       end
     end
 
