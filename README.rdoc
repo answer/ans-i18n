@@ -20,12 +20,23 @@ i18n の t メソッドの拡張版を提供
  t_message :key, "デフォルトメッセージ", replaces={}
  t_message_model :model, "デフォルトメッセージ", :key, replaces={}
 
+ l_default time
+ l_short time
+ l_long time
+ l_month_day time
+ l_only_time time
+
+
+=== t_attr
+
 t_attr メソッドは、現在のコントローラからモデル名を類推して、カラム名を取得
 
 カラム名は、 i18n ロケールファイルの activerecord.attributes.{モデル名}.{カラム名} から取得する
 
 t_attr_model メソッドは、モデル名を指定してカラム名を取得する
 
+
+=== t_message
 
 t_message メソッドは、 t_attr メソッドと似ていて、 messages.{モデル名}.{キー} からメッセージを取得する
 
@@ -35,4 +46,13 @@ t_message メソッドは、 t_attr メソッドと似ていて、 messages.{モ
  t_message :key, "デフォルトメッセージ", name: "名前" #=> "名前のメッセージ"
 
 t_message のキーに使用している messages は、 t_message_key をオーバーライドすることで変更することができる
+
+
+=== l_*
+
+l_* メソッドは、 l(time, format: format) のショートカット
+
+time には、 Time と Date を渡すことができる
+
+l_only_time に Time 以外の引数を渡すと、 nil を返す
 

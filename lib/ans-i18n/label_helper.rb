@@ -21,4 +21,23 @@ module Ans::I18n::LabelHelper
   def t_message_key
     "messages"
   end
+
+  def l_default(time)
+    l_format time, :default
+  end
+  def l_short(time)
+    l_format time, :short
+  end
+  def l_long(time)
+    l_format time, :long
+  end
+  def l_month_day(time)
+    l_format time, :month_day
+  end
+  def l_only_time(time)
+    l_format time, :only_time if Time === time
+  end
+  def l_format(time,format)
+    ::I18n.l time, format: format if time
+  end
 end
