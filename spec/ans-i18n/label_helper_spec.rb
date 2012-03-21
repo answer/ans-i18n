@@ -120,5 +120,189 @@ module Ans::I18n
       end
     end
 
+    describe "#l_default" do
+      before do
+        @action = proc{
+          @helper.l_default @time
+        }
+      end
+
+      context "引数が Time の場合" do
+        before do
+          stub(::I18n).l
+          @time = Time.now
+        end
+        it "は、 default で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :default)
+        end
+      end
+
+      context "引数が Date の場合" do
+        before do
+          stub(::I18n).l
+          @time = Date.today
+        end
+        it "は、 default で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :default)
+        end
+      end
+
+      context "引数が nil の場合" do
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+    end
+
+    describe "#l_short" do
+      before do
+        @action = proc{
+          @helper.l_short @time
+        }
+      end
+
+      context "引数が Time の場合" do
+        before do
+          stub(::I18n).l
+          @time = Time.now
+        end
+        it "は、 short で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :short)
+        end
+      end
+
+      context "引数が Date の場合" do
+        before do
+          stub(::I18n).l
+          @time = Date.today
+        end
+        it "は、 short で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :short)
+        end
+      end
+
+      context "引数が nil の場合" do
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+    end
+
+    describe "#l_long" do
+      before do
+        @action = proc{
+          @helper.l_long @time
+        }
+      end
+
+      context "引数が Time の場合" do
+        before do
+          stub(::I18n).l
+          @time = Time.now
+        end
+        it "は、 long で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :long)
+        end
+      end
+
+      context "引数が Date の場合" do
+        before do
+          stub(::I18n).l
+          @time = Date.today
+        end
+        it "は、 long で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :long)
+        end
+      end
+
+      context "引数が nil の場合" do
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+    end
+
+    describe "#l_month_day" do
+      before do
+        @action = proc{
+          @helper.l_month_day @time
+        }
+      end
+
+      context "引数が Time の場合" do
+        before do
+          stub(::I18n).l
+          @time = Time.now
+        end
+        it "は、 month_day で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :month_day)
+        end
+      end
+
+      context "引数が Date の場合" do
+        before do
+          stub(::I18n).l
+          @time = Date.today
+        end
+        it "は、 month_day で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :month_day)
+        end
+      end
+
+      context "引数が nil の場合" do
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+    end
+
+    describe "#l_only_time" do
+      before do
+        @action = proc{
+          @helper.l_only_time @time
+        }
+      end
+
+      context "引数が Time の場合" do
+        before do
+          stub(::I18n).l
+          @time = Time.now
+        end
+        it "は、 only_time で l メソッドを呼び出す" do
+          @action.call
+          ::I18n.should have_received.l(@time, format: :only_time)
+        end
+      end
+
+      context "引数が Date の場合" do
+        before do
+          stub(::I18n).l
+          @time = Date.today
+        end
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+      context "引数が nil の場合" do
+        it "は、 nil を返す" do
+          @action.call.should be_nil
+        end
+      end
+
+    end
+
   end
 end
