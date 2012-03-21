@@ -54,5 +54,5 @@ l_* メソッドは、 l(time, format: format) のショートカット
 
 time には、 Time と Date を渡すことができる
 
-l_only_time に Date を渡すと、 nil を返す
+l_only_time に Time 以外の引数を渡すと、 nil を返す
 

@@ -288,7 +288,6 @@ module Ans::I18n
 
       context "引数が Date の場合" do
         before do
-          stub(::I18n).l
           @time = Date.today
         end
         it "は、 nil を返す" do

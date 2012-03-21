@@ -35,7 +35,7 @@ module Ans::I18n::LabelHelper
     l_format time, :month_day
   end
   def l_only_time(time)
-    l_format time, :only_time
+    l_format time, :only_time if Time === time
   end
   def l_format(time,format)
     ::I18n.l time, format: format if time
